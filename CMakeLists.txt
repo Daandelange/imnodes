@@ -88,3 +88,37 @@ target_link_libraries ( save_load
 target_link_libraries ( simple
   ${imnodes_link_libraries}
   )
+
+install ( TARGETS
+  gl3w
+  imgui
+  imnodes
+  DESTINATION
+  lib
+  )
+
+install ( FILES
+  imnodes.h
+  DESTINATION
+  include/imnodes
+  )
+
+install ( FILES
+  imgui/imconfig.h
+  imgui/imgui.h
+  imgui/imgui_impl_opengl3.h
+  imgui/imgui_impl_sdl.h
+  imgui/imgui_internal.h
+  imgui/imstb_rectpack.h
+  imgui/imstb_textedit.h
+  imgui/imstb_truetype.h
+  DESTINATION
+  include/imgui
+  )
+
+install ( FILES
+  gl3w/include/GL/gl3w.h
+  gl3w/include/GL/glcorearb.h
+  DESTINATION
+  include/gl3w/GL
+  )
