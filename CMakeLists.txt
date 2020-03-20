@@ -5,10 +5,23 @@ project ( imnodes )
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package ( SDL2 )
+find_package ( OpenGL REQUIRED )
+
+if (WIN32)
+  find_package ( SDL )
+  include_directories (
+    ${SDL_INCLUDE_DIR}
+  )
+  set(sdl_link_library ${SDL_LIBRARY})
+else()
+  find_package ( SDL2 )
+  include_directories (
+    ${SDL2_INCLUDE_DIRS}
+  )
+  set(sdl_link_library SDL2)
+endif()
 
 include_directories (
-  ${SDL2_INCLUDE_DIRS}
   gl3w/include
   imgui
   .
@@ -31,29 +44,31 @@ add_library ( imnodes STATIC
   )
 
 set ( imnodes_link_libraries
-  SDL2
+  ${sdl_link_library}
   gl3w
   imgui
   imnodes
+  ${OPENGL_gl_LIBRARY}
+  ${OPENGL_glu_LIBRARY}
   ${CMAKE_DL_LIBS}
   )
 
-add_executable ( color_node_editor
+add_executable ( color_node_editor WIN32
   example/color_node_editor.cpp
   example/main.cpp
   )
 
-add_executable ( multi_editor
+add_executable ( multi_editor WIN32
   example/multi_editor.cpp
   example/main.cpp
   )
 
-add_executable ( save_load
+add_executable ( save_load WIN32
   example/save_load.cpp
   example/main.cpp
   )
 
-add_executable ( simple
+add_executable ( simple WIN32
   example/simple.cpp
   example/main.cpp
   )

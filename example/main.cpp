@@ -7,7 +7,15 @@
 #include <SDL.h>
 #include <GL/gl3w.h>
 
+#ifdef WIN32
+int CALLBACK WinMain(
+    HINSTANCE hInstance,
+    HINSTANCE hPrevInstance,
+    LPSTR lpCmdLine,
+    int nCmdShow)
+#else
 int main(int, char**)
+#endif
 {
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) != 0)
     {
