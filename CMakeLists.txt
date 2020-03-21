@@ -122,3 +122,9 @@ install ( FILES
   DESTINATION
   include/gl3w/GL
   )
+
+install ( FILES
+  cmake/imnodesConfig.cmake
+  DESTINATION
+  lib/cmake
+  )
