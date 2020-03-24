@@ -19,12 +19,22 @@ else()
     ${SDL2_INCLUDE_DIRS}
   )
   set(sdl_link_library SDL2)
+
+endif()
+
+if (APPLE)
+  find_package ( X11 REQUIRED )
+  find_library(CORE_FOUNDATION Foundation)
+  if (NOT CORE_FOUNDATION)
+      message(FATAL_ERROR "Foundation not found")
+  endif()
 endif()
 
 include_directories (
   gl3w/include
   imgui
   .
+  ${X11_INCLUDE_DIR}
   )
 
 add_library ( gl3w STATIC
@@ -51,6 +61,8 @@ set ( imnodes_link_libraries
   ${OPENGL_gl_LIBRARY}
   ${OPENGL_glu_LIBRARY}
   ${CMAKE_DL_LIBS}
+  ${X11_LIBRARIES}
+  ${CORE_FOUNDATION}
   )
 
 add_executable ( color_node_editor WIN32
